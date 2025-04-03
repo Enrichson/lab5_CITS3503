@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Finder Example</title>
+    <style>
+        /* Style for highlighting the matched text */
+        .highlight {
+            background-color: yellow; /* Highlight color */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Text Finder Example!</h1>
+    <p>This is a simple page to demonstrate how we can dynamically search and highlight text.</p>
+    <p>Try typing a word in the search field above to highlight any matches on the page.</p>
+    
+    <script>
+        function addFinder() {
+            // Create the textfield and append it to the top of the page
+            const searchField = document.createElement('input');
+            searchField.type = 'text';
+            searchField.placeholder = 'Search for text...';
+            searchField.style.display = 'block'; // Make sure it appears as a block at the top
+            searchField.style.marginBottom = '20px'; // Add some space below the field
+            document.body.insertBefore(searchField, document.body.firstChild); // Add it before the first element in the body
+            
+            // Event listener to search and highlight text when input is typed
+            searchField.addEventListener('input', function() {
+                // Get the search query entered by the user
+                const searchQuery = searchField.value.trim().toLowerCase();
+                
+                // Remove previous highlights
+                const highlightedElements = document.querySelectorAll('.highlight');
+                highlightedElements.forEach(element => {
+                    element.classList.remove('highlight');
+                    element.innerHTML = element.innerHTML; // Reset to the original text (removes <span> wrap)
+                });
+                
+                // If search query is not empty, search and highlight the text
+                if (searchQuery !== '') {
+                    searchAndHighlightText(searchQuery);
+                }
+            });
+        }
+        
+        function searchAndHighlightText(query) {
+            // Search all text nodes on the page
+            const bodyTextElements = document.body.querySelectorAll('*');
+            bodyTextElements.forEach(element => {
+                if (element.nodeType === Node.TEXT_NODE && element.textContent.trim()) {
+                    const textContent = element.textContent;
+                    const index = textContent.toLowerCase().indexOf(query);
+                    
+                    // If the search query is found
+                    if (index !== -1) {
+                        const beforeMatch = textContent.slice(0, index);
+                        const match = textContent.slice(index, index + query.length);
+                        const afterMatch = textContent.slice(index + query.length);
+                        
+                        // Create the span for highlighting and update the content
+                        const span = document.createElement('span');
+                        span.classList.add('highlight');
+                        span.textContent = match;
+                        
+                        // Replace the node with new nodes: before, highlighted match, and after
+                        const newTextNodes = document.createTextNode(beforeMatch);
+                        const afterTextNode = document.createTextNode(afterMatch);
+                        
+                        element.replaceWith(newTextNodes, span, afterTextNode);
+                    }
+                }
+            });
+        }
+
+        // Call addFinder to initialize the functionality
+        addFinder();
+    </script>
+</body>
+</html>

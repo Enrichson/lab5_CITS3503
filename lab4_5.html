@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Page Example</title>
+</head>
+<body>
+    <script>
+        function createPage() {
+            const pageTitle = prompt("Enter Page Title:");
+            if(!pageTitle){
+                alert("Page Title Required");
+                return;
+            }
+
+            const heading = prompt("Enter a heading:");
+            if(!heading){
+                alert("Heading Required");
+                return;
+            }
+
+            const paragraph = prompt("Enter a paragraph:");
+            if(!paragraph){
+                alert("Paragraph Required");
+                return;
+            }
+
+            const imageURL = prompt("Enter an image URL:");
+            if(!imageURL){
+                alert("Image URL Required");
+                return;
+            }
+
+            const body = document.body;
+            body.innerHTML = "";
+
+            document.title = pageTitle;
+
+            const h1 = document.createElement("h1");
+            h1.textContent = heading;
+            body.appendChild(h1);
+
+            const p = document.createElement("p");
+            p.textContent = paragraph;
+            body.appendChild(p)
+
+            const img = document.createElement("img");
+            img.src = imageURL;
+            img.alt = "User Provided image"
+            img.style.maxWidth = "100%"; // Optional: Make sure the image fits in the page
+            body.appendChild(img);
+        }
+        window.onload = createPage;
+    </script>
+</body>
+</html>

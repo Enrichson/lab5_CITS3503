@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Page Example</title>
+</head>
+<body>
+    <script>
+        // JavaScript code here
+        document.addEventListener("DOMContentLoaded", function () {
+            // Create a container for the page
+            const pageContainer = document.createElement("div");
+            pageContainer.id = "page-container";
+            pageContainer.style.textAlign = "center";
+            pageContainer.style.marginTop = "50px";
+            document.body.appendChild(pageContainer);
+
+            // Add a header
+            const header = document.createElement("h1");
+            header.textContent = "Welcome to My Page";
+            header.style.fontSize = "36px";
+            header.style.marginBottom = "20px";
+            pageContainer.appendChild(header);
+
+            // Add a line of text
+            const text = document.createElement("p");
+            text.textContent = "This is a dynamically created webpage using JavaScript.";
+            text.style.fontSize = "18px";
+            text.style.color = "gray";
+            text.style.marginBottom = "30px";
+            pageContainer.appendChild(text);
+
+            // Add an image
+            const image = document.createElement("img");
+            image.src = "C:\Users\FX503VM\Pictures\me.jpg"; // Replace with your image URL
+            image.alt = "Placeholder Image";
+            image.style.width = "300px";
+            image.style.height = "200px";
+            image.style.border = "2px solid black";
+            pageContainer.appendChild(image);
+        });
+    </script>
+</body>
+</html>
